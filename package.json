@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "author": {
     "name": "Farih Akmal Haqiqi",
@@ -26,10 +28,17 @@
     "vite": "^7.1.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "eslint": "^9.36.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",
+    "typescript-eslint": "^8.44.1",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
