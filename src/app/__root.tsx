@@ -9,7 +9,6 @@ import {
   Scripts,
 } from '@tanstack/react-router';
 
-import { NotFound } from '~/components/not-found';
 import appCss from '~/styles/globals.css?url';
 
 export const Route = createRootRoute({
@@ -34,7 +33,6 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
-  notFoundComponent: NotFound,
 });
 
 function RootComponent() {

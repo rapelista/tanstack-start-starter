@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import prettier from 'eslint-config-prettier/flat';
 import pluginImport from 'eslint-plugin-import';
 import pluginReact from 'eslint-plugin-react';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -130,4 +130,6 @@ export default defineConfig([
   },
 
   prettier,
+
+  globalIgnores(['node_modules', 'dist', '**/.nitro/**', '**/.tanstack/**']),
 ]);
