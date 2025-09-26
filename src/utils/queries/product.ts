@@ -1,7 +1,15 @@
-import { getProducts } from '~/server/product';
+import { queryOptions } from '@tanstack/react-query';
 
-import { createQueryOptionalFn } from '.';
+import { getProductById, getProducts } from '~/server/product';
+
+import { queryOptionsServerFn } from '.';
 
 export const productQueries = {
-  all: createQueryOptionalFn(getProducts, ['products']),
+  all: queryOptionsServerFn(getProducts, ['products']),
+
+  one: (id: number) =>
+    queryOptions({
+      queryKey: ['product', id],
+      queryFn: () => getProductById({ data: id }),
+    }),
 };

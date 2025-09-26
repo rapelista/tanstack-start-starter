@@ -8,7 +8,9 @@ export const Route = createFileRoute('/_authed/products/')({
 });
 
 function RouteComponent() {
-  const { data } = useQuery(productQueries.all({ page: 1, limit: 10 }));
+  useQuery(productQueries.all({ page: 1, limit: 10 }));
 
-  return data;
+  useQuery(productQueries.one(1));
+
+  return null;
 }

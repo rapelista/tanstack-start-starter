@@ -8,7 +8,7 @@ const PaginationSchema = z.object({
 });
 
 export const getProducts = createServerFn({ method: 'GET' })
-  .inputValidator(PaginationSchema.parse)
+  .inputValidator(PaginationSchema)
   .handler(() => {
     return {
       data: [],
@@ -17,7 +17,9 @@ export const getProducts = createServerFn({ method: 'GET' })
 
 export const getProductById = createServerFn({ method: 'GET' })
   .inputValidator(z.number())
-  .handler(() => {
+  .handler(({ data }) => {
+    console.log({ data });
+
     return {
       data: [],
     };
