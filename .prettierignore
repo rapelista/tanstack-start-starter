@@ -1,0 +1,13 @@
+public
+
+# Ignore dependencies:
+pnpm-lock.yaml
+
+# Ignore OS specific files:
+.DS_Store
+
+# Ignore logs:
+*.log
+
+# Ignore routeTree.gen.ts
+**/routeTree.gen.ts
