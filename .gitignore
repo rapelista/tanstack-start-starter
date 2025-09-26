@@ -1,5 +1,8 @@
 .tanstack
+
 dist
+.output
+.nitro
 
 node_modules
 
