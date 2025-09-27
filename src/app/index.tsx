@@ -1,7 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 
-import { Button } from '~/components/ui/button';
-
 export const Route = createFileRoute('/')({
   component: RouteComponent,
   head: () => ({
@@ -17,9 +15,13 @@ function RouteComponent() {
   return (
     <div>
       <div>Hello &ldquo;/&rdquo;!</div>
-      <Button asChild>
-        <Link to="/about">Click Me</Link>
-      </Button>
+      <hr />
+      <p>
+        You can sign in{' '}
+        <Link className="text-[var(--chart-1)]" to="/sign-in">
+          here
+        </Link>
+      </p>
     </div>
   );
 }
