@@ -14,6 +14,7 @@ import { Route as SignInRouteImport } from './app/sign-in'
 import { Route as ResetPasswordRouteImport } from './app/reset-password'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as AuthedProductsIndexRouteImport } from './app/_authed/products/index'
+import { Route as ApiAuthSplatRouteImport } from './app/api/auth/$'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -40,12 +41,18 @@ const AuthedProductsIndexRoute = AuthedProductsIndexRouteImport.update({
   path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/products': typeof AuthedProductsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/products': typeof AuthedProductsIndexRoute
 }
 export interface FileRoutesById {
@@ -61,19 +69,33 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/_authed/products/': typeof AuthedProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/reset-password' | '/sign-in' | '/sign-up' | '/products'
+  fullPaths:
+    | '/'
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
+    | '/api/auth/$'
+    | '/products'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/reset-password' | '/sign-in' | '/sign-up' | '/products'
+  to:
+    | '/'
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
+    | '/api/auth/$'
+    | '/products'
   id:
     | '__root__'
     | '/'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
+    | '/api/auth/$'
     | '/_authed/products/'
   fileRoutesById: FileRoutesById
 }
@@ -82,6 +104,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignInRoute: typeof SignInRoute
   SignUpRoute: typeof SignUpRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   AuthedProductsIndexRoute: typeof AuthedProductsIndexRoute
 }
 
@@ -122,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -130,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   SignInRoute: SignInRoute,
   SignUpRoute: SignUpRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
   AuthedProductsIndexRoute: AuthedProductsIndexRoute,
 }
 export const routeTree = rootRouteImport
