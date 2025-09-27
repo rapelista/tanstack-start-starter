@@ -131,5 +131,11 @@ export default defineConfig([
 
   prettier,
 
-  globalIgnores(['node_modules', 'dist', '**/.nitro/**', '**/.tanstack/**']),
+  globalIgnores([
+    'node_modules',
+    'dist',
+    '**/.output/**',
+    '**/.nitro/**',
+    '**/.tanstack/**',
+  ]),
 ]);
