@@ -2,13 +2,19 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 
 import { GitHub } from '~/assets/svg/github';
 import { Google } from '~/assets/svg/google';
+import { SignInForm } from '~/components/sign-in/form';
 import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
 import { Separator } from '~/components/ui/separator';
 
 export const Route = createFileRoute('/sign-in')({
   component: RouteComponent,
+
+  /**
+   * @TODO: fully using search schema validation
+   */
+  validateSearch: (search) => ({
+    error_code: search.error_code as string | undefined,
+  }),
 });
 
 function RouteComponent() {
@@ -67,43 +73,7 @@ function RouteComponent() {
             </div>
           </div>
 
-          <form action="#" className="mt-6 space-y-4" method="post">
-            <div>
-              <Label
-                className="text-sm font-medium text-foreground dark:text-foreground"
-                htmlFor="email-login-04"
-              >
-                Email
-              </Label>
-              <Input
-                autoComplete="email"
-                className="mt-2"
-                id="email-login-04"
-                name="email-login-04"
-                placeholder="ephraim@blocks.so"
-                type="email"
-              />
-            </div>
-            <div>
-              <Label
-                className="text-sm font-medium text-foreground dark:text-foreground"
-                htmlFor="password-login-04"
-              >
-                Password
-              </Label>
-              <Input
-                autoComplete="password"
-                className="mt-2"
-                id="password-login-04"
-                name="password-login-04"
-                placeholder="********"
-                type="password"
-              />
-            </div>
-            <Button className="mt-4 w-full py-2 font-medium" type="submit">
-              Sign in
-            </Button>
-          </form>
+          <SignInForm />
 
           <p className="mt-6 text-sm text-muted-foreground dark:text-muted-foreground">
             Forgot your password?{' '}
