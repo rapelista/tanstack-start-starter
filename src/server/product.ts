@@ -1,6 +1,8 @@
 import { createServerFn } from '@tanstack/react-start';
 import { z } from 'zod';
 
+import { zodValidator } from '~/lib/zod-validator';
+
 const PaginationSchema = z.object({
   page: z.number().int().positive().default(1),
   limit: z.number().int().positive().default(10),
@@ -8,7 +10,7 @@ const PaginationSchema = z.object({
 });
 
 export const getProducts = createServerFn({ method: 'GET' })
-  .inputValidator(PaginationSchema)
+  .inputValidator(zodValidator(PaginationSchema))
   .handler(() => {
     return {
       data: [],
@@ -16,10 +18,8 @@ export const getProducts = createServerFn({ method: 'GET' })
   });
 
 export const getProductById = createServerFn({ method: 'GET' })
-  .inputValidator(z.number())
-  .handler(({ data }) => {
-    console.log({ data });
-
+  .inputValidator(zodValidator(z.number().int().positive()))
+  .handler(() => {
     return {
       data: [],
     };
