@@ -18,7 +18,7 @@ function RouteComponent() {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="flex items-center space-x-1.5">
             <p className="font-medium text-lg text-foreground dark:text-foreground">
-              Acme
+              Gvstang
             </p>
           </div>
           <h3 className="mt-6 text-lg font-semibold text-foreground dark:text-foreground">
