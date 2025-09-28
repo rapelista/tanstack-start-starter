@@ -34,6 +34,7 @@ function RouteComponent() {
             Don&apos;t have an account?{' '}
             <Link
               className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
+              search={{ error_code: undefined }}
               to="/sign-up"
             >
               Sign up
