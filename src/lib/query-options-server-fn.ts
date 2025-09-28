@@ -17,11 +17,7 @@ export type ExtractFetcher<T> = T extends
   ? [In, Out]
   : never;
 
-export type ExtractInput<T> = T extends [infer In, any]
-  ? In extends (...args: any) => any
-    ? Parameters<In>[0]
-    : never
-  : never;
+export type ExtractInput<T> = T extends [infer In, any] ? In : never;
 
 export type ExtractOutput<T> = T extends [any, infer Out] ? Out : never;
 
