@@ -16,3 +16,17 @@ export const organizationMiddleware = createMiddleware().server(
     return next();
   },
 );
+
+export const mustHaveNotOrganizationMiddleware = createMiddleware().server(
+  async ({ next, request }) => {
+    const organizations = await auth.api.listOrganizations({
+      headers: request.headers,
+    });
+
+    if (organizations.length > 0) {
+      throw redirect({ to: '/dashboard' });
+    }
+
+    return next();
+  },
+);
