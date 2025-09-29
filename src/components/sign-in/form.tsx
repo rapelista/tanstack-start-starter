@@ -108,9 +108,17 @@ export function SignInForm() {
         <SignInError code={search.error_code} />
       )}
 
-      <Button className="mt-4 w-full py-2 font-medium" type="submit">
-        Sign in
-      </Button>
+      <form.Subscribe>
+        {({ isSubmitting }) => (
+          <Button
+            className="mt-4 w-full py-2 font-medium"
+            disabled={isSubmitting}
+            type="submit"
+          >
+            Sign in
+          </Button>
+        )}
+      </form.Subscribe>
     </form>
   );
 }
