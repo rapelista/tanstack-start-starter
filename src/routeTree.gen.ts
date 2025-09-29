@@ -15,7 +15,9 @@ import { Route as IndexRouteImport } from './app/index'
 import { Route as UnauthedSignUpIndexRouteImport } from './app/_unauthed/sign-up/index'
 import { Route as UnauthedSignInIndexRouteImport } from './app/_unauthed/sign-in/index'
 import { Route as UnauthedResetPasswordIndexRouteImport } from './app/_unauthed/reset-password/index'
+import { Route as AuthedUsersIndexRouteImport } from './app/_authed/users/index'
 import { Route as AuthedProductsIndexRouteImport } from './app/_authed/products/index'
+import { Route as AuthedDashboardIndexRouteImport } from './app/_authed/dashboard/index'
 import { Route as ApiAuthSplatRouteImport } from './app/api/auth/$'
 
 const UnauthedRoute = UnauthedRouteImport.update({
@@ -47,9 +49,19 @@ const UnauthedResetPasswordIndexRoute =
     path: '/reset-password/',
     getParentRoute: () => UnauthedRoute,
   } as any)
+const AuthedUsersIndexRoute = AuthedUsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AuthedRoute,
+} as any)
 const AuthedProductsIndexRoute = AuthedProductsIndexRouteImport.update({
   id: '/products/',
   path: '/products/',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const AuthedDashboardIndexRoute = AuthedDashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
   getParentRoute: () => AuthedRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -61,7 +73,9 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/dashboard': typeof AuthedDashboardIndexRoute
   '/products': typeof AuthedProductsIndexRoute
+  '/users': typeof AuthedUsersIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
   '/sign-in': typeof UnauthedSignInIndexRoute
   '/sign-up': typeof UnauthedSignUpIndexRoute
@@ -69,7 +83,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/dashboard': typeof AuthedDashboardIndexRoute
   '/products': typeof AuthedProductsIndexRoute
+  '/users': typeof AuthedUsersIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
   '/sign-in': typeof UnauthedSignInIndexRoute
   '/sign-up': typeof UnauthedSignUpIndexRoute
@@ -80,7 +96,9 @@ export interface FileRoutesById {
   '/_authed': typeof AuthedRouteWithChildren
   '/_unauthed': typeof UnauthedRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_authed/dashboard/': typeof AuthedDashboardIndexRoute
   '/_authed/products/': typeof AuthedProductsIndexRoute
+  '/_authed/users/': typeof AuthedUsersIndexRoute
   '/_unauthed/reset-password/': typeof UnauthedResetPasswordIndexRoute
   '/_unauthed/sign-in/': typeof UnauthedSignInIndexRoute
   '/_unauthed/sign-up/': typeof UnauthedSignUpIndexRoute
@@ -90,7 +108,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/api/auth/$'
+    | '/dashboard'
     | '/products'
+    | '/users'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
@@ -98,7 +118,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/api/auth/$'
+    | '/dashboard'
     | '/products'
+    | '/users'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
@@ -108,7 +130,9 @@ export interface FileRouteTypes {
     | '/_authed'
     | '/_unauthed'
     | '/api/auth/$'
+    | '/_authed/dashboard/'
     | '/_authed/products/'
+    | '/_authed/users/'
     | '/_unauthed/reset-password/'
     | '/_unauthed/sign-in/'
     | '/_unauthed/sign-up/'
@@ -165,11 +189,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthedResetPasswordIndexRouteImport
       parentRoute: typeof UnauthedRoute
     }
+    '/_authed/users/': {
+      id: '/_authed/users/'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AuthedUsersIndexRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/_authed/products/': {
       id: '/_authed/products/'
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof AuthedProductsIndexRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/dashboard/': {
+      id: '/_authed/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthedDashboardIndexRouteImport
       parentRoute: typeof AuthedRoute
     }
     '/api/auth/$': {
@@ -183,11 +221,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthedRouteChildren {
+  AuthedDashboardIndexRoute: typeof AuthedDashboardIndexRoute
   AuthedProductsIndexRoute: typeof AuthedProductsIndexRoute
+  AuthedUsersIndexRoute: typeof AuthedUsersIndexRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedDashboardIndexRoute: AuthedDashboardIndexRoute,
   AuthedProductsIndexRoute: AuthedProductsIndexRoute,
+  AuthedUsersIndexRoute: AuthedUsersIndexRoute,
 }
 
 const AuthedRouteWithChildren =

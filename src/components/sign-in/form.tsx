@@ -38,7 +38,7 @@ export function SignInForm() {
           }),
         });
       } else {
-        router.navigate({ to: '/products' });
+        router.navigate({ to: '/dashboard' });
       }
     },
   });

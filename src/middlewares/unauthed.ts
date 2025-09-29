@@ -10,7 +10,7 @@ export const unauthedMiddleware = createMiddleware().server(
     });
 
     if (session !== null) {
-      throw redirect({ to: '/products' });
+      throw redirect({ to: '/dashboard' });
     }
 
     return next();
