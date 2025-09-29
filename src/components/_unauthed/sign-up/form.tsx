@@ -39,7 +39,7 @@ export function SignUpForm() {
           }),
         });
       } else {
-        router.navigate({ to: '/dashboard' });
+        router.navigate({ to: '/setup' });
       }
     },
   });
