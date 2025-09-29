@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_authed/notifications/')({
+export const Route = createFileRoute('/_authed/_panel/account/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   return (
     <div>
-      <p>Notifications</p>
+      <p>Account Settings</p>
     </div>
   );
 }

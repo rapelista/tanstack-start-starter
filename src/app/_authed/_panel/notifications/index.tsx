@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_authed/users/teams')({
+export const Route = createFileRoute('/_authed/_panel/notifications/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   return (
     <div>
-      <p>Groups/Teams</p>
+      <p>Notifications</p>
     </div>
   );
 }

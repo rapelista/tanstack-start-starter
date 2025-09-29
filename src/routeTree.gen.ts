@@ -12,18 +12,19 @@ import { Route as rootRouteImport } from './app/__root'
 import { Route as UnauthedRouteImport } from './app/_unauthed'
 import { Route as AuthedRouteImport } from './app/_authed'
 import { Route as IndexRouteImport } from './app/index'
-import { Route as SetupIndexRouteImport } from './app/setup/index'
+import { Route as AuthedPanelRouteImport } from './app/_authed/_panel'
 import { Route as UnauthedSignUpIndexRouteImport } from './app/_unauthed/sign-up/index'
 import { Route as UnauthedSignInIndexRouteImport } from './app/_unauthed/sign-in/index'
 import { Route as UnauthedResetPasswordIndexRouteImport } from './app/_unauthed/reset-password/index'
-import { Route as AuthedUsersIndexRouteImport } from './app/_authed/users/index'
-import { Route as AuthedNotificationsIndexRouteImport } from './app/_authed/notifications/index'
-import { Route as AuthedDashboardIndexRouteImport } from './app/_authed/dashboard/index'
-import { Route as AuthedBillingIndexRouteImport } from './app/_authed/billing/index'
-import { Route as AuthedAccountIndexRouteImport } from './app/_authed/account/index'
+import { Route as AuthedSetupIndexRouteImport } from './app/_authed/setup/index'
 import { Route as ApiAuthSplatRouteImport } from './app/api/auth/$'
-import { Route as AuthedUsersTeamsRouteImport } from './app/_authed/users/teams'
-import { Route as AuthedUsersBulkRouteImport } from './app/_authed/users/bulk'
+import { Route as AuthedPanelUsersIndexRouteImport } from './app/_authed/_panel/users/index'
+import { Route as AuthedPanelNotificationsIndexRouteImport } from './app/_authed/_panel/notifications/index'
+import { Route as AuthedPanelDashboardIndexRouteImport } from './app/_authed/_panel/dashboard/index'
+import { Route as AuthedPanelBillingIndexRouteImport } from './app/_authed/_panel/billing/index'
+import { Route as AuthedPanelAccountIndexRouteImport } from './app/_authed/_panel/account/index'
+import { Route as AuthedPanelUsersTeamsRouteImport } from './app/_authed/_panel/users/teams'
+import { Route as AuthedPanelUsersBulkRouteImport } from './app/_authed/_panel/users/bulk'
 
 const UnauthedRoute = UnauthedRouteImport.update({
   id: '/_unauthed',
@@ -38,10 +39,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SetupIndexRoute = SetupIndexRouteImport.update({
-  id: '/setup/',
-  path: '/setup/',
-  getParentRoute: () => rootRouteImport,
+const AuthedPanelRoute = AuthedPanelRouteImport.update({
+  id: '/_panel',
+  getParentRoute: () => AuthedRoute,
 } as any)
 const UnauthedSignUpIndexRoute = UnauthedSignUpIndexRouteImport.update({
   id: '/sign-up/',
@@ -59,30 +59,9 @@ const UnauthedResetPasswordIndexRoute =
     path: '/reset-password/',
     getParentRoute: () => UnauthedRoute,
   } as any)
-const AuthedUsersIndexRoute = AuthedUsersIndexRouteImport.update({
-  id: '/users/',
-  path: '/users/',
-  getParentRoute: () => AuthedRoute,
-} as any)
-const AuthedNotificationsIndexRoute =
-  AuthedNotificationsIndexRouteImport.update({
-    id: '/notifications/',
-    path: '/notifications/',
-    getParentRoute: () => AuthedRoute,
-  } as any)
-const AuthedDashboardIndexRoute = AuthedDashboardIndexRouteImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
-  getParentRoute: () => AuthedRoute,
-} as any)
-const AuthedBillingIndexRoute = AuthedBillingIndexRouteImport.update({
-  id: '/billing/',
-  path: '/billing/',
-  getParentRoute: () => AuthedRoute,
-} as any)
-const AuthedAccountIndexRoute = AuthedAccountIndexRouteImport.update({
-  id: '/account/',
-  path: '/account/',
+const AuthedSetupIndexRoute = AuthedSetupIndexRouteImport.update({
+  id: '/setup/',
+  path: '/setup/',
   getParentRoute: () => AuthedRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -90,120 +69,148 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthedUsersTeamsRoute = AuthedUsersTeamsRouteImport.update({
+const AuthedPanelUsersIndexRoute = AuthedPanelUsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AuthedPanelRoute,
+} as any)
+const AuthedPanelNotificationsIndexRoute =
+  AuthedPanelNotificationsIndexRouteImport.update({
+    id: '/notifications/',
+    path: '/notifications/',
+    getParentRoute: () => AuthedPanelRoute,
+  } as any)
+const AuthedPanelDashboardIndexRoute =
+  AuthedPanelDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AuthedPanelRoute,
+  } as any)
+const AuthedPanelBillingIndexRoute = AuthedPanelBillingIndexRouteImport.update({
+  id: '/billing/',
+  path: '/billing/',
+  getParentRoute: () => AuthedPanelRoute,
+} as any)
+const AuthedPanelAccountIndexRoute = AuthedPanelAccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
+  getParentRoute: () => AuthedPanelRoute,
+} as any)
+const AuthedPanelUsersTeamsRoute = AuthedPanelUsersTeamsRouteImport.update({
   id: '/users/teams',
   path: '/users/teams',
-  getParentRoute: () => AuthedRoute,
+  getParentRoute: () => AuthedPanelRoute,
 } as any)
-const AuthedUsersBulkRoute = AuthedUsersBulkRouteImport.update({
+const AuthedPanelUsersBulkRoute = AuthedPanelUsersBulkRouteImport.update({
   id: '/users/bulk',
   path: '/users/bulk',
-  getParentRoute: () => AuthedRoute,
+  getParentRoute: () => AuthedPanelRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/setup': typeof SetupIndexRoute
-  '/users/bulk': typeof AuthedUsersBulkRoute
-  '/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/account': typeof AuthedAccountIndexRoute
-  '/billing': typeof AuthedBillingIndexRoute
-  '/dashboard': typeof AuthedDashboardIndexRoute
-  '/notifications': typeof AuthedNotificationsIndexRoute
-  '/users': typeof AuthedUsersIndexRoute
+  '/setup': typeof AuthedSetupIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
   '/sign-in': typeof UnauthedSignInIndexRoute
   '/sign-up': typeof UnauthedSignUpIndexRoute
+  '/users/bulk': typeof AuthedPanelUsersBulkRoute
+  '/users/teams': typeof AuthedPanelUsersTeamsRoute
+  '/account': typeof AuthedPanelAccountIndexRoute
+  '/billing': typeof AuthedPanelBillingIndexRoute
+  '/dashboard': typeof AuthedPanelDashboardIndexRoute
+  '/notifications': typeof AuthedPanelNotificationsIndexRoute
+  '/users': typeof AuthedPanelUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/setup': typeof SetupIndexRoute
-  '/users/bulk': typeof AuthedUsersBulkRoute
-  '/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/account': typeof AuthedAccountIndexRoute
-  '/billing': typeof AuthedBillingIndexRoute
-  '/dashboard': typeof AuthedDashboardIndexRoute
-  '/notifications': typeof AuthedNotificationsIndexRoute
-  '/users': typeof AuthedUsersIndexRoute
+  '/setup': typeof AuthedSetupIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
   '/sign-in': typeof UnauthedSignInIndexRoute
   '/sign-up': typeof UnauthedSignUpIndexRoute
+  '/users/bulk': typeof AuthedPanelUsersBulkRoute
+  '/users/teams': typeof AuthedPanelUsersTeamsRoute
+  '/account': typeof AuthedPanelAccountIndexRoute
+  '/billing': typeof AuthedPanelBillingIndexRoute
+  '/dashboard': typeof AuthedPanelDashboardIndexRoute
+  '/notifications': typeof AuthedPanelNotificationsIndexRoute
+  '/users': typeof AuthedPanelUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
   '/_unauthed': typeof UnauthedRouteWithChildren
-  '/setup/': typeof SetupIndexRoute
-  '/_authed/users/bulk': typeof AuthedUsersBulkRoute
-  '/_authed/users/teams': typeof AuthedUsersTeamsRoute
+  '/_authed/_panel': typeof AuthedPanelRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/_authed/account/': typeof AuthedAccountIndexRoute
-  '/_authed/billing/': typeof AuthedBillingIndexRoute
-  '/_authed/dashboard/': typeof AuthedDashboardIndexRoute
-  '/_authed/notifications/': typeof AuthedNotificationsIndexRoute
-  '/_authed/users/': typeof AuthedUsersIndexRoute
+  '/_authed/setup/': typeof AuthedSetupIndexRoute
   '/_unauthed/reset-password/': typeof UnauthedResetPasswordIndexRoute
   '/_unauthed/sign-in/': typeof UnauthedSignInIndexRoute
   '/_unauthed/sign-up/': typeof UnauthedSignUpIndexRoute
+  '/_authed/_panel/users/bulk': typeof AuthedPanelUsersBulkRoute
+  '/_authed/_panel/users/teams': typeof AuthedPanelUsersTeamsRoute
+  '/_authed/_panel/account/': typeof AuthedPanelAccountIndexRoute
+  '/_authed/_panel/billing/': typeof AuthedPanelBillingIndexRoute
+  '/_authed/_panel/dashboard/': typeof AuthedPanelDashboardIndexRoute
+  '/_authed/_panel/notifications/': typeof AuthedPanelNotificationsIndexRoute
+  '/_authed/_panel/users/': typeof AuthedPanelUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/api/auth/$'
     | '/setup'
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
     | '/users/bulk'
     | '/users/teams'
-    | '/api/auth/$'
     | '/account'
     | '/billing'
     | '/dashboard'
     | '/notifications'
     | '/users'
-    | '/reset-password'
-    | '/sign-in'
-    | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/api/auth/$'
     | '/setup'
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
     | '/users/bulk'
     | '/users/teams'
-    | '/api/auth/$'
     | '/account'
     | '/billing'
     | '/dashboard'
     | '/notifications'
     | '/users'
-    | '/reset-password'
-    | '/sign-in'
-    | '/sign-up'
   id:
     | '__root__'
     | '/'
     | '/_authed'
     | '/_unauthed'
-    | '/setup/'
-    | '/_authed/users/bulk'
-    | '/_authed/users/teams'
+    | '/_authed/_panel'
     | '/api/auth/$'
-    | '/_authed/account/'
-    | '/_authed/billing/'
-    | '/_authed/dashboard/'
-    | '/_authed/notifications/'
-    | '/_authed/users/'
+    | '/_authed/setup/'
     | '/_unauthed/reset-password/'
     | '/_unauthed/sign-in/'
     | '/_unauthed/sign-up/'
+    | '/_authed/_panel/users/bulk'
+    | '/_authed/_panel/users/teams'
+    | '/_authed/_panel/account/'
+    | '/_authed/_panel/billing/'
+    | '/_authed/_panel/dashboard/'
+    | '/_authed/_panel/notifications/'
+    | '/_authed/_panel/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthedRoute: typeof AuthedRouteWithChildren
   UnauthedRoute: typeof UnauthedRouteWithChildren
-  SetupIndexRoute: typeof SetupIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -230,12 +237,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/setup/': {
-      id: '/setup/'
-      path: '/setup'
-      fullPath: '/setup'
-      preLoaderRoute: typeof SetupIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authed/_panel': {
+      id: '/_authed/_panel'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthedPanelRouteImport
+      parentRoute: typeof AuthedRoute
     }
     '/_unauthed/sign-up/': {
       id: '/_unauthed/sign-up/'
@@ -258,39 +265,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthedResetPasswordIndexRouteImport
       parentRoute: typeof UnauthedRoute
     }
-    '/_authed/users/': {
-      id: '/_authed/users/'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof AuthedUsersIndexRouteImport
-      parentRoute: typeof AuthedRoute
-    }
-    '/_authed/notifications/': {
-      id: '/_authed/notifications/'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof AuthedNotificationsIndexRouteImport
-      parentRoute: typeof AuthedRoute
-    }
-    '/_authed/dashboard/': {
-      id: '/_authed/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthedDashboardIndexRouteImport
-      parentRoute: typeof AuthedRoute
-    }
-    '/_authed/billing/': {
-      id: '/_authed/billing/'
-      path: '/billing'
-      fullPath: '/billing'
-      preLoaderRoute: typeof AuthedBillingIndexRouteImport
-      parentRoute: typeof AuthedRoute
-    }
-    '/_authed/account/': {
-      id: '/_authed/account/'
-      path: '/account'
-      fullPath: '/account'
-      preLoaderRoute: typeof AuthedAccountIndexRouteImport
+    '/_authed/setup/': {
+      id: '/_authed/setup/'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof AuthedSetupIndexRouteImport
       parentRoute: typeof AuthedRoute
     }
     '/api/auth/$': {
@@ -300,41 +279,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authed/users/teams': {
-      id: '/_authed/users/teams'
+    '/_authed/_panel/users/': {
+      id: '/_authed/_panel/users/'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AuthedPanelUsersIndexRouteImport
+      parentRoute: typeof AuthedPanelRoute
+    }
+    '/_authed/_panel/notifications/': {
+      id: '/_authed/_panel/notifications/'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthedPanelNotificationsIndexRouteImport
+      parentRoute: typeof AuthedPanelRoute
+    }
+    '/_authed/_panel/dashboard/': {
+      id: '/_authed/_panel/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthedPanelDashboardIndexRouteImport
+      parentRoute: typeof AuthedPanelRoute
+    }
+    '/_authed/_panel/billing/': {
+      id: '/_authed/_panel/billing/'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof AuthedPanelBillingIndexRouteImport
+      parentRoute: typeof AuthedPanelRoute
+    }
+    '/_authed/_panel/account/': {
+      id: '/_authed/_panel/account/'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthedPanelAccountIndexRouteImport
+      parentRoute: typeof AuthedPanelRoute
+    }
+    '/_authed/_panel/users/teams': {
+      id: '/_authed/_panel/users/teams'
       path: '/users/teams'
       fullPath: '/users/teams'
-      preLoaderRoute: typeof AuthedUsersTeamsRouteImport
-      parentRoute: typeof AuthedRoute
+      preLoaderRoute: typeof AuthedPanelUsersTeamsRouteImport
+      parentRoute: typeof AuthedPanelRoute
     }
-    '/_authed/users/bulk': {
-      id: '/_authed/users/bulk'
+    '/_authed/_panel/users/bulk': {
+      id: '/_authed/_panel/users/bulk'
       path: '/users/bulk'
       fullPath: '/users/bulk'
-      preLoaderRoute: typeof AuthedUsersBulkRouteImport
-      parentRoute: typeof AuthedRoute
+      preLoaderRoute: typeof AuthedPanelUsersBulkRouteImport
+      parentRoute: typeof AuthedPanelRoute
     }
   }
 }
 
+interface AuthedPanelRouteChildren {
+  AuthedPanelUsersBulkRoute: typeof AuthedPanelUsersBulkRoute
+  AuthedPanelUsersTeamsRoute: typeof AuthedPanelUsersTeamsRoute
+  AuthedPanelAccountIndexRoute: typeof AuthedPanelAccountIndexRoute
+  AuthedPanelBillingIndexRoute: typeof AuthedPanelBillingIndexRoute
+  AuthedPanelDashboardIndexRoute: typeof AuthedPanelDashboardIndexRoute
+  AuthedPanelNotificationsIndexRoute: typeof AuthedPanelNotificationsIndexRoute
+  AuthedPanelUsersIndexRoute: typeof AuthedPanelUsersIndexRoute
+}
+
+const AuthedPanelRouteChildren: AuthedPanelRouteChildren = {
+  AuthedPanelUsersBulkRoute: AuthedPanelUsersBulkRoute,
+  AuthedPanelUsersTeamsRoute: AuthedPanelUsersTeamsRoute,
+  AuthedPanelAccountIndexRoute: AuthedPanelAccountIndexRoute,
+  AuthedPanelBillingIndexRoute: AuthedPanelBillingIndexRoute,
+  AuthedPanelDashboardIndexRoute: AuthedPanelDashboardIndexRoute,
+  AuthedPanelNotificationsIndexRoute: AuthedPanelNotificationsIndexRoute,
+  AuthedPanelUsersIndexRoute: AuthedPanelUsersIndexRoute,
+}
+
+const AuthedPanelRouteWithChildren = AuthedPanelRoute._addFileChildren(
+  AuthedPanelRouteChildren,
+)
+
 interface AuthedRouteChildren {
-  AuthedUsersBulkRoute: typeof AuthedUsersBulkRoute
-  AuthedUsersTeamsRoute: typeof AuthedUsersTeamsRoute
-  AuthedAccountIndexRoute: typeof AuthedAccountIndexRoute
-  AuthedBillingIndexRoute: typeof AuthedBillingIndexRoute
-  AuthedDashboardIndexRoute: typeof AuthedDashboardIndexRoute
-  AuthedNotificationsIndexRoute: typeof AuthedNotificationsIndexRoute
-  AuthedUsersIndexRoute: typeof AuthedUsersIndexRoute
+  AuthedPanelRoute: typeof AuthedPanelRouteWithChildren
+  AuthedSetupIndexRoute: typeof AuthedSetupIndexRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
-  AuthedUsersBulkRoute: AuthedUsersBulkRoute,
-  AuthedUsersTeamsRoute: AuthedUsersTeamsRoute,
-  AuthedAccountIndexRoute: AuthedAccountIndexRoute,
-  AuthedBillingIndexRoute: AuthedBillingIndexRoute,
-  AuthedDashboardIndexRoute: AuthedDashboardIndexRoute,
-  AuthedNotificationsIndexRoute: AuthedNotificationsIndexRoute,
-  AuthedUsersIndexRoute: AuthedUsersIndexRoute,
+  AuthedPanelRoute: AuthedPanelRouteWithChildren,
+  AuthedSetupIndexRoute: AuthedSetupIndexRoute,
 }
 
 const AuthedRouteWithChildren =
@@ -360,7 +388,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthedRoute: AuthedRouteWithChildren,
   UnauthedRoute: UnauthedRouteWithChildren,
-  SetupIndexRoute: SetupIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

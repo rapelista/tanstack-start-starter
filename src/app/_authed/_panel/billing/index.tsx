@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_authed/users/')({
+export const Route = createFileRoute('/_authed/_panel/billing/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   return (
     <div>
-      <h1>Manage Users</h1>
+      <p>Billing</p>
     </div>
   );
 }
