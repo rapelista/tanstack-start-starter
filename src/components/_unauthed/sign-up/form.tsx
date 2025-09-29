@@ -39,7 +39,7 @@ export function SignUpForm() {
           }),
         });
       } else {
-        router.navigate({ to: '/products' });
+        router.navigate({ to: '/dashboard' });
       }
     },
   });
