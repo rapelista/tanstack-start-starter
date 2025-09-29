@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './app/__root'
 import { Route as UnauthedRouteImport } from './app/_unauthed'
 import { Route as AuthedRouteImport } from './app/_authed'
 import { Route as IndexRouteImport } from './app/index'
+import { Route as SetupIndexRouteImport } from './app/setup/index'
 import { Route as UnauthedSignUpIndexRouteImport } from './app/_unauthed/sign-up/index'
 import { Route as UnauthedSignInIndexRouteImport } from './app/_unauthed/sign-in/index'
 import { Route as UnauthedResetPasswordIndexRouteImport } from './app/_unauthed/reset-password/index'
@@ -35,6 +36,11 @@ const AuthedRoute = AuthedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupIndexRoute = SetupIndexRouteImport.update({
+  id: '/setup/',
+  path: '/setup/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UnauthedSignUpIndexRoute = UnauthedSignUpIndexRouteImport.update({
@@ -97,6 +103,7 @@ const AuthedUsersBulkRoute = AuthedUsersBulkRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/setup': typeof SetupIndexRoute
   '/users/bulk': typeof AuthedUsersBulkRoute
   '/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -111,6 +118,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/setup': typeof SetupIndexRoute
   '/users/bulk': typeof AuthedUsersBulkRoute
   '/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
   '/_unauthed': typeof UnauthedRouteWithChildren
+  '/setup/': typeof SetupIndexRoute
   '/_authed/users/bulk': typeof AuthedUsersBulkRoute
   '/_authed/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -144,6 +153,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/setup'
     | '/users/bulk'
     | '/users/teams'
     | '/api/auth/$'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/setup'
     | '/users/bulk'
     | '/users/teams'
     | '/api/auth/$'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authed'
     | '/_unauthed'
+    | '/setup/'
     | '/_authed/users/bulk'
     | '/_authed/users/teams'
     | '/api/auth/$'
@@ -191,6 +203,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthedRoute: typeof AuthedRouteWithChildren
   UnauthedRoute: typeof UnauthedRouteWithChildren
+  SetupIndexRoute: typeof SetupIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -215,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup/': {
+      id: '/setup/'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_unauthed/sign-up/': {
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthedRoute: AuthedRouteWithChildren,
   UnauthedRoute: UnauthedRouteWithChildren,
+  SetupIndexRoute: SetupIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

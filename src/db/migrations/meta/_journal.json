@@ -8,6 +8,13 @@
       "when": 1758997877856,
       "tag": "0000_init_better_auth_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1759164475898,
+      "tag": "0001_add_organization_related_schema",
+      "breakpoints": true
     }
   ]
 }

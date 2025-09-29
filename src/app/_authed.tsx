@@ -16,11 +16,12 @@ import {
   SidebarTrigger,
 } from '~/components/ui/sidebar';
 import { authedMiddleware } from '~/middlewares/authed';
+import { organizationMiddleware } from '~/middlewares/organization';
 
 export const Route = createFileRoute('/_authed')({
   component: RouteComponent,
   server: {
-    middleware: [authedMiddleware],
+    middleware: [authedMiddleware, organizationMiddleware],
   },
 });
 
