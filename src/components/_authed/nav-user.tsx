@@ -1,3 +1,4 @@
+import { useRouter } from '@tanstack/react-router';
 import {
   BadgeCheck,
   Bell,
@@ -23,11 +24,21 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '~/components/ui/sidebar';
-import { useSession } from '~/lib/auth/client';
+import { signOut, useSession } from '~/lib/auth/client';
 
 export function NavUser() {
+  const router = useRouter();
+
   const { isMobile } = useSidebar();
   const { data: authed } = useSession();
+
+  const handleLogout = async () => {
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => router.navigate({ to: '/sign-in' }),
+      },
+    });
+  };
 
   return (
     <SidebarMenu>
@@ -100,7 +111,12 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogout();
+              }}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>
