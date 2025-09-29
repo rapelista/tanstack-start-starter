@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { GitHub } from '~/assets/svg/github';
 import { Google } from '~/assets/svg/google';
-import { SignInForm } from '~/components/sign-in/form';
+import { SignInForm } from '~/components/_unauthed/sign-in/form';
 import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 

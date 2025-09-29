@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-import { SignOutButton } from '~/components/sign-out/button';
+import { SignOutButton } from '~/components/_unauthed/sign-out/button';
 import { authedMiddleware } from '~/middlewares/authed';
 
 export const Route = createFileRoute('/_authed')({
