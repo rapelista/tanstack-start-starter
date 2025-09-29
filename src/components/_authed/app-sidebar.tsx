@@ -30,7 +30,7 @@ const navMain: NavMainItem[] = [
       },
       {
         title: 'Import & Export',
-        url: '/users/imports',
+        url: '/users/bulk',
       },
       {
         title: 'Groups/Teams',
