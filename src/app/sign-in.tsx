@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { zodValidator } from '@tanstack/zod-adapter';
+import { z } from 'zod';
 
 import { GitHub } from '~/assets/svg/github';
 import { Google } from '~/assets/svg/google';
@@ -6,15 +8,19 @@ import { SignInForm } from '~/components/sign-in/form';
 import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 
+const SignInSearchSchema = z
+  .object({
+    error_code: z.string().optional(),
+  })
+  .optional();
+
 export const Route = createFileRoute('/sign-in')({
   component: RouteComponent,
 
   /**
    * @TODO: fully using search schema validation
    */
-  validateSearch: (search) => ({
-    error_code: search.error_code as string | undefined,
-  }),
+  validateSearch: zodValidator(SignInSearchSchema),
 });
 
 function RouteComponent() {
@@ -34,7 +40,6 @@ function RouteComponent() {
             Don&apos;t have an account?{' '}
             <Link
               className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
-              search={{ error_code: undefined }}
               to="/sign-up"
             >
               Sign up
