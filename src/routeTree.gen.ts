@@ -16,7 +16,10 @@ import { Route as UnauthedSignUpIndexRouteImport } from './app/_unauthed/sign-up
 import { Route as UnauthedSignInIndexRouteImport } from './app/_unauthed/sign-in/index'
 import { Route as UnauthedResetPasswordIndexRouteImport } from './app/_unauthed/reset-password/index'
 import { Route as AuthedUsersIndexRouteImport } from './app/_authed/users/index'
+import { Route as AuthedNotificationsIndexRouteImport } from './app/_authed/notifications/index'
 import { Route as AuthedDashboardIndexRouteImport } from './app/_authed/dashboard/index'
+import { Route as AuthedBillingIndexRouteImport } from './app/_authed/billing/index'
+import { Route as AuthedAccountIndexRouteImport } from './app/_authed/account/index'
 import { Route as ApiAuthSplatRouteImport } from './app/api/auth/$'
 import { Route as AuthedUsersTeamsRouteImport } from './app/_authed/users/teams'
 import { Route as AuthedUsersBulkRouteImport } from './app/_authed/users/bulk'
@@ -55,9 +58,25 @@ const AuthedUsersIndexRoute = AuthedUsersIndexRouteImport.update({
   path: '/users/',
   getParentRoute: () => AuthedRoute,
 } as any)
+const AuthedNotificationsIndexRoute =
+  AuthedNotificationsIndexRouteImport.update({
+    id: '/notifications/',
+    path: '/notifications/',
+    getParentRoute: () => AuthedRoute,
+  } as any)
 const AuthedDashboardIndexRoute = AuthedDashboardIndexRouteImport.update({
   id: '/dashboard/',
   path: '/dashboard/',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const AuthedBillingIndexRoute = AuthedBillingIndexRouteImport.update({
+  id: '/billing/',
+  path: '/billing/',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const AuthedAccountIndexRoute = AuthedAccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
   getParentRoute: () => AuthedRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -81,7 +100,10 @@ export interface FileRoutesByFullPath {
   '/users/bulk': typeof AuthedUsersBulkRoute
   '/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/account': typeof AuthedAccountIndexRoute
+  '/billing': typeof AuthedBillingIndexRoute
   '/dashboard': typeof AuthedDashboardIndexRoute
+  '/notifications': typeof AuthedNotificationsIndexRoute
   '/users': typeof AuthedUsersIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
   '/sign-in': typeof UnauthedSignInIndexRoute
@@ -92,7 +114,10 @@ export interface FileRoutesByTo {
   '/users/bulk': typeof AuthedUsersBulkRoute
   '/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/account': typeof AuthedAccountIndexRoute
+  '/billing': typeof AuthedBillingIndexRoute
   '/dashboard': typeof AuthedDashboardIndexRoute
+  '/notifications': typeof AuthedNotificationsIndexRoute
   '/users': typeof AuthedUsersIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
   '/sign-in': typeof UnauthedSignInIndexRoute
@@ -106,7 +131,10 @@ export interface FileRoutesById {
   '/_authed/users/bulk': typeof AuthedUsersBulkRoute
   '/_authed/users/teams': typeof AuthedUsersTeamsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_authed/account/': typeof AuthedAccountIndexRoute
+  '/_authed/billing/': typeof AuthedBillingIndexRoute
   '/_authed/dashboard/': typeof AuthedDashboardIndexRoute
+  '/_authed/notifications/': typeof AuthedNotificationsIndexRoute
   '/_authed/users/': typeof AuthedUsersIndexRoute
   '/_unauthed/reset-password/': typeof UnauthedResetPasswordIndexRoute
   '/_unauthed/sign-in/': typeof UnauthedSignInIndexRoute
@@ -119,7 +147,10 @@ export interface FileRouteTypes {
     | '/users/bulk'
     | '/users/teams'
     | '/api/auth/$'
+    | '/account'
+    | '/billing'
     | '/dashboard'
+    | '/notifications'
     | '/users'
     | '/reset-password'
     | '/sign-in'
@@ -130,7 +161,10 @@ export interface FileRouteTypes {
     | '/users/bulk'
     | '/users/teams'
     | '/api/auth/$'
+    | '/account'
+    | '/billing'
     | '/dashboard'
+    | '/notifications'
     | '/users'
     | '/reset-password'
     | '/sign-in'
@@ -143,7 +177,10 @@ export interface FileRouteTypes {
     | '/_authed/users/bulk'
     | '/_authed/users/teams'
     | '/api/auth/$'
+    | '/_authed/account/'
+    | '/_authed/billing/'
     | '/_authed/dashboard/'
+    | '/_authed/notifications/'
     | '/_authed/users/'
     | '/_unauthed/reset-password/'
     | '/_unauthed/sign-in/'
@@ -208,11 +245,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedUsersIndexRouteImport
       parentRoute: typeof AuthedRoute
     }
+    '/_authed/notifications/': {
+      id: '/_authed/notifications/'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthedNotificationsIndexRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/_authed/dashboard/': {
       id: '/_authed/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthedDashboardIndexRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/billing/': {
+      id: '/_authed/billing/'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof AuthedBillingIndexRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/account/': {
+      id: '/_authed/account/'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthedAccountIndexRouteImport
       parentRoute: typeof AuthedRoute
     }
     '/api/auth/$': {
@@ -242,14 +300,20 @@ declare module '@tanstack/react-router' {
 interface AuthedRouteChildren {
   AuthedUsersBulkRoute: typeof AuthedUsersBulkRoute
   AuthedUsersTeamsRoute: typeof AuthedUsersTeamsRoute
+  AuthedAccountIndexRoute: typeof AuthedAccountIndexRoute
+  AuthedBillingIndexRoute: typeof AuthedBillingIndexRoute
   AuthedDashboardIndexRoute: typeof AuthedDashboardIndexRoute
+  AuthedNotificationsIndexRoute: typeof AuthedNotificationsIndexRoute
   AuthedUsersIndexRoute: typeof AuthedUsersIndexRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedUsersBulkRoute: AuthedUsersBulkRoute,
   AuthedUsersTeamsRoute: AuthedUsersTeamsRoute,
+  AuthedAccountIndexRoute: AuthedAccountIndexRoute,
+  AuthedBillingIndexRoute: AuthedBillingIndexRoute,
   AuthedDashboardIndexRoute: AuthedDashboardIndexRoute,
+  AuthedNotificationsIndexRoute: AuthedNotificationsIndexRoute,
   AuthedUsersIndexRoute: AuthedUsersIndexRoute,
 }
 
