@@ -4,13 +4,13 @@ import { createMiddleware } from '@tanstack/react-start';
 import { auth } from '~/lib/auth/server';
 
 export const authedMiddleware = createMiddleware().server(
-  async ({ next, request }) => {
+  async ({ next, request, pathname }) => {
     const session = await auth.api.getSession({
       headers: request.headers,
     });
 
     if (session === null) {
-      throw redirect({ to: '/sign-in' });
+      throw redirect({ to: '/sign-in', search: { redirect_to: pathname } });
     }
 
     return next();

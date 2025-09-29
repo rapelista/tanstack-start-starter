@@ -11,6 +11,7 @@ import { Separator } from '~/components/ui/separator';
 const SignInSearchSchema = z
   .object({
     error_code: z.string().optional(),
+    redirect_to: z.string().optional(),
   })
   .optional();
 

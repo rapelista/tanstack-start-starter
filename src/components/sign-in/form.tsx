@@ -38,7 +38,9 @@ export function SignInForm() {
           }),
         });
       } else {
-        router.navigate({ to: '/dashboard' });
+        const redirectTo = search?.redirect_to;
+
+        router.navigate({ to: redirectTo ?? '/dashboard' });
       }
     },
   });
