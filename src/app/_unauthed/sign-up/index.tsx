@@ -4,23 +4,23 @@ import { z } from 'zod';
 
 import { GitHub } from '~/assets/svg/github';
 import { Google } from '~/assets/svg/google';
-import { SignInForm } from '~/components/sign-in/form';
+import { SignUpForm } from '~/components/sign-up/form';
 import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 
-const SignInSearchSchema = z
+const SignUpSearchSchema = z
   .object({
     error_code: z.string().optional(),
   })
   .optional();
 
-export const Route = createFileRoute('/sign-in')({
+export const Route = createFileRoute('/_unauthed/sign-up/')({
   component: RouteComponent,
 
   /**
    * @TODO: fully using search schema validation
    */
-  validateSearch: zodValidator(SignInSearchSchema),
+  validateSearch: zodValidator(SignUpSearchSchema),
 });
 
 function RouteComponent() {
@@ -34,15 +34,15 @@ function RouteComponent() {
             </p>
           </div>
           <h3 className="mt-6 text-lg font-semibold text-foreground dark:text-foreground">
-            Sign in to your account
+            Sign up for an account
           </h3>
           <p className="mt-2 text-sm text-muted-foreground dark:text-muted-foreground">
-            Don&apos;t have an account?{' '}
+            Already have an account?{' '}
             <Link
               className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
-              to="/sign-up"
+              to="/sign-in"
             >
-              Sign up
+              Sign in
             </Link>
           </p>
           <div className="mt-8 flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
@@ -53,7 +53,7 @@ function RouteComponent() {
             >
               <a href="#">
                 <GitHub aria-hidden={true} className="size-5" />
-                <span className="text-sm font-medium">Sign in with GitHub</span>
+                <span className="text-sm font-medium">Sign up with GitHub</span>
               </a>
             </Button>
             <Button
@@ -63,7 +63,7 @@ function RouteComponent() {
             >
               <a href="#">
                 <Google aria-hidden={true} className="size-4" />
-                <span className="text-sm font-medium">Sign in with Google</span>
+                <span className="text-sm font-medium">Sign up with Google</span>
               </a>
             </Button>
           </div>
@@ -79,17 +79,7 @@ function RouteComponent() {
             </div>
           </div>
 
-          <SignInForm />
-
-          <p className="mt-6 text-sm text-muted-foreground dark:text-muted-foreground">
-            Forgot your password?{' '}
-            <Link
-              className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
-              to="/reset-password"
-            >
-              Reset password
-            </Link>
-          </p>
+          <SignUpForm />
         </div>
       </div>
     </div>

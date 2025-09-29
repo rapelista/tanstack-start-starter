@@ -11,3 +11,6 @@ pnpm-lock.yaml
 
 # Ignore routeTree.gen.ts
 **/routeTree.gen.ts
+
+# Ignore migrations file
+src/db/migrations

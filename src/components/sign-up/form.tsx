@@ -12,7 +12,7 @@ import { SignUpError } from './error';
 
 export function SignUpForm() {
   const router = useRouter();
-  const search = useSearch({ from: '/sign-up' });
+  const search = useSearch({ from: '/_unauthed/sign-up/' });
 
   const form = useForm({
     defaultValues: {
@@ -134,7 +134,7 @@ export function SignUpForm() {
         </form.Field>
       </div>
 
-      {search.error_code !== undefined && (
+      {search?.error_code !== undefined && (
         <SignUpError code={search.error_code} />
       )}
 
