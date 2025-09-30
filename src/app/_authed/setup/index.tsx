@@ -1,12 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import { SetupForm } from '~/components/_authed/setup/form';
-import { mustHaveNotOrganizationMiddleware } from '~/middlewares/organization';
+import { getOrganizationsServerFn } from '~/server/organization';
 
 export const Route = createFileRoute('/_authed/setup/')({
   component: RouteComponent,
-  server: {
-    middleware: [mustHaveNotOrganizationMiddleware],
+  beforeLoad: async () => {
+    const organizations = await getOrganizationsServerFn();
+
+    if (organizations.length > 0) {
+      throw redirect({ to: '/dashboard' });
+    }
   },
 });
 

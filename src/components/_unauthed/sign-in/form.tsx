@@ -5,7 +5,7 @@ import { FieldInfo } from '~/components/field-info';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
-import { authClient, signIn } from '~/lib/auth/client';
+import { signIn } from '~/lib/auth/client';
 import { SignInPayload, SignInSchema } from '~/utils/schemas/sign-in';
 
 import { SignInError } from './error';
@@ -38,20 +38,10 @@ export function SignInForm() {
           }),
         });
       } else {
-        const { data } = await authClient.organization.list();
-        const hasOrganizations = data && data.length > 0;
-
-        if (hasOrganizations) {
-          router.navigate({ to: '/setup' });
-        }
-
         const redirectTo = search?.redirect_to;
 
         router.navigate({
-          to:
-            redirectTo === '/setup' && hasOrganizations
-              ? '/dashboard'
-              : (redirectTo ?? '/dashboard'),
+          to: redirectTo || '/dashboard',
         });
       }
     },

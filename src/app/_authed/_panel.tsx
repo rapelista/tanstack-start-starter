@@ -1,4 +1,4 @@
-import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 
 import { AppSidebar } from '~/components/_authed/app-sidebar';
 import {
@@ -15,12 +15,16 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '~/components/ui/sidebar';
-import { organizationMiddleware } from '~/middlewares/organization';
+import { getOrganizationsServerFn } from '~/server/organization';
 
 export const Route = createFileRoute('/_authed/_panel')({
   component: RouteComponent,
-  server: {
-    middleware: [organizationMiddleware],
+  beforeLoad: async () => {
+    const organizations = await getOrganizationsServerFn();
+
+    if (organizations.length === 0) {
+      throw redirect({ to: '/setup' });
+    }
   },
 });
 
