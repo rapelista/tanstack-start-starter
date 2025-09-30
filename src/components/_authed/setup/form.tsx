@@ -25,14 +25,18 @@ export function SetupForm() {
       onDynamic: CreateOrganizationSchema,
     },
 
-    onSubmit: async () => {
-      const { data } = await authClient.organization.list();
+    onSubmit: async ({ value }) => {
+      const { data, error } = await authClient.organization.list();
 
-      if (typeof data?.length === 'number' && data.length > 0) {
+      if (error) {
+        navigate({ to: '/setup' });
+      }
+
+      if (!data?.length) {
         navigate({ to: '/dashboard' });
       } else {
         await authClient.organization.create({
-          name: 'My Organization',
+          ...value,
           slug: new Date().getTime().toString(),
           fetchOptions: {
             onSuccess: () => navigate({ to: '/dashboard' }),

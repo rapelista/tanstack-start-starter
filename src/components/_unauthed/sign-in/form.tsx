@@ -5,7 +5,7 @@ import { FieldInfo } from '~/components/field-info';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
-import { signIn } from '~/lib/auth/client';
+import { authClient, signIn } from '~/lib/auth/client';
 import { SignInPayload, SignInSchema } from '~/utils/schemas/sign-in';
 
 import { SignInError } from './error';
@@ -38,6 +38,22 @@ export function SignInForm() {
           }),
         });
       } else {
+        const { data, error } = await authClient.organization.list();
+
+        if (error) {
+          router.navigate({
+            to: '/sign-in',
+            search: (old) => ({
+              ...old,
+              error_code: error.code,
+            }),
+          });
+        }
+
+        if (!data?.length) {
+          router.navigate({ to: '/setup' });
+        }
+
         const redirectTo = search?.redirect_to;
 
         router.navigate({ to: redirectTo ?? '/dashboard' });
