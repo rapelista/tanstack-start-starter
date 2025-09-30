@@ -26,23 +26,22 @@ export function SetupForm() {
     },
 
     onSubmit: async ({ value }) => {
-      const { data, error } = await authClient.organization.list();
+      const { data } = await authClient.organization.list();
+      const hasOrganizations = data && data.length > 0;
 
-      if (error) {
-        navigate({ to: '/setup' });
-      }
-
-      if (!data?.length) {
+      if (hasOrganizations) {
         navigate({ to: '/dashboard' });
-      } else {
-        await authClient.organization.create({
-          ...value,
-          slug: new Date().getTime().toString(),
-          fetchOptions: {
-            onSuccess: () => navigate({ to: '/dashboard' }),
-          },
-        });
+
+        return;
       }
+
+      await authClient.organization.create({
+        ...value,
+        slug: new Date().getTime().toString(),
+        fetchOptions: {
+          onSuccess: () => navigate({ to: '/dashboard' }),
+        },
+      });
     },
   });
 

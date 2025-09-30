@@ -38,25 +38,21 @@ export function SignInForm() {
           }),
         });
       } else {
-        const { data, error } = await authClient.organization.list();
+        const { data } = await authClient.organization.list();
+        const hasOrganizations = data && data.length > 0;
 
-        if (error) {
-          router.navigate({
-            to: '/sign-in',
-            search: (old) => ({
-              ...old,
-              error_code: error.code,
-            }),
-          });
-        }
-
-        if (!data?.length) {
+        if (hasOrganizations) {
           router.navigate({ to: '/setup' });
         }
 
         const redirectTo = search?.redirect_to;
 
-        router.navigate({ to: redirectTo ?? '/dashboard' });
+        router.navigate({
+          to:
+            redirectTo === '/setup' && hasOrganizations
+              ? '/dashboard'
+              : (redirectTo ?? '/dashboard'),
+        });
       }
     },
   });
