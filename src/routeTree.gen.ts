@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
+import { Route as PlaygroundRouteImport } from './app/playground'
 import { Route as UnauthedRouteImport } from './app/_unauthed'
 import { Route as AuthedRouteImport } from './app/_authed'
 import { Route as IndexRouteImport } from './app/index'
@@ -26,6 +27,11 @@ import { Route as AuthedPanelAccountIndexRouteImport } from './app/_authed/_pane
 import { Route as AuthedPanelUsersTeamsRouteImport } from './app/_authed/_panel/users/teams'
 import { Route as AuthedPanelUsersBulkRouteImport } from './app/_authed/_panel/users/bulk'
 
+const PlaygroundRoute = PlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UnauthedRoute = UnauthedRouteImport.update({
   id: '/_unauthed',
   getParentRoute: () => rootRouteImport,
@@ -109,6 +115,7 @@ const AuthedPanelUsersBulkRoute = AuthedPanelUsersBulkRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/playground': typeof PlaygroundRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/setup': typeof AuthedSetupIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/playground': typeof PlaygroundRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/setup': typeof AuthedSetupIndexRoute
   '/reset-password': typeof UnauthedResetPasswordIndexRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
   '/_unauthed': typeof UnauthedRouteWithChildren
+  '/playground': typeof PlaygroundRoute
   '/_authed/_panel': typeof AuthedPanelRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_authed/setup/': typeof AuthedSetupIndexRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/playground'
     | '/api/auth/$'
     | '/setup'
     | '/reset-password'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/playground'
     | '/api/auth/$'
     | '/setup'
     | '/reset-password'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authed'
     | '/_unauthed'
+    | '/playground'
     | '/_authed/_panel'
     | '/api/auth/$'
     | '/_authed/setup/'
@@ -211,11 +223,19 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthedRoute: typeof AuthedRouteWithChildren
   UnauthedRoute: typeof UnauthedRouteWithChildren
+  PlaygroundRoute: typeof PlaygroundRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_unauthed': {
       id: '/_unauthed'
       path: ''
@@ -388,6 +408,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthedRoute: AuthedRouteWithChildren,
   UnauthedRoute: UnauthedRouteWithChildren,
+  PlaygroundRoute: PlaygroundRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

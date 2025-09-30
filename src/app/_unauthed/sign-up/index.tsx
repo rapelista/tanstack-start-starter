@@ -2,11 +2,11 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { zodValidator } from '@tanstack/zod-adapter';
 import { z } from 'zod';
 
-import { GitHub } from '~/assets/svg/github';
-import { Google } from '~/assets/svg/google';
 import { SignUpForm } from '~/components/_unauthed/sign-up/form';
 import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
+import { Facebook } from '~/components/ui/svgs/facebook';
+import { Google } from '~/components/ui/svgs/google';
 
 const SignUpSearchSchema = z
   .object({
@@ -45,25 +45,30 @@ function RouteComponent() {
               Sign in
             </Link>
           </p>
-          <div className="mt-8 flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
+          <div className="mt-8 flex flex-row items-center gap-4 @container">
             <Button
               asChild
               className="flex-1 items-center justify-center space-x-2 py-2"
               variant="outline"
             >
               <a href="#">
-                <GitHub aria-hidden={true} className="size-5" />
-                <span className="text-sm font-medium">Sign up with GitHub</span>
+                <Facebook />
+                <span className="text-sm font-medium">
+                  <span className="@max-md:hidden">Sign up with </span>
+                  Facebook
+                </span>
               </a>
             </Button>
             <Button
               asChild
-              className="mt-2 flex-1 items-center justify-center space-x-2 py-2 sm:mt-0"
+              className="flex-1 items-center justify-center space-x-2 py-2"
               variant="outline"
             >
               <a href="#">
-                <Google aria-hidden={true} className="size-4" />
-                <span className="text-sm font-medium">Sign up with Google</span>
+                <Google className="w-4 h-4 [&>path]:fill-current" />
+                <span className="text-sm font-medium">
+                  <span className="@max-md:hidden">Sign up with </span>Google
+                </span>
               </a>
             </Button>
           </div>
